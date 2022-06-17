@@ -36,10 +36,14 @@ const renderPosts = (incomingPosts) =>
       url: "https://jsonplaceholder.typicode.com/posts",
     });
     postsToBeRendered = data.slice(0, 12);
-    const greg =
-      JSON.parse(window.sessionStorage.getItem(`posts`)) ?? postsToBeRendered;
+
+    const greg = window.sessionStorage.getItem(`posts`)
+      ? JSON.parse(window.sessionStorage.getItem(`posts`))
+      : postsToBeRendered;
+
     renderPosts(greg);
-    window.sessionStorage.setItem(`posts`, JSON.stringify(postsToBeRendered));
+
+    window.sessionStorage.setItem(`posts`, JSON.stringify(greg));
   } catch (error) {
     console.log(error);
   }
@@ -66,10 +70,10 @@ const createNewPost = async () => {
       },
     });
     renderPosts([data]);
-    window.sessionStorage.setItem(
-      `posts`,
-      JSON.stringify([data, ...postsToBeRendered])
-    );
+
+    const greg = JSON.parse(window.sessionStorage.getItem(`posts`));
+
+    window.sessionStorage.setItem(`posts`, JSON.stringify([...greg, data]));
   } catch (error) {
     console.log(error);
   }
@@ -88,6 +92,9 @@ const deletePost = async (id) => {
     });
     const post = document.getElementById(`${id}`);
     post.remove();
+    let charles = JSON.parse(window.sessionStorage.getItem(`posts`));
+    charles = charles.filter((post) => post.id !== id);
+    window.sessionStorage.setItem("posts", JSON.stringify(charles));
   } catch (error) {
     console.log(error);
   }
