@@ -16,6 +16,7 @@ fetch(' https://jsonplaceholder.typicode.com/posts')
                 <a href="about.html">Read More</a>
                 <button class="btn">
                 <i class="fa fa-trash"></i> Trash</button>
+                <button class="btn"><i class="fa fa-upload"></i> Update</button>
               </div>
             </div>`
   
