@@ -4,19 +4,17 @@ const container = document.querySelector(".container");
 // get one post
 const getPost = async () => {
   try {
-    const { data } = await axios({
-      method: "get",
-      url: `https://jsonplaceholder.typicode.com/posts/${id}`,
-    });
-
+    let data = window.sessionStorage.getItem(`posts`);
+    data = JSON.parse(data);
+    data = data.find((post) => post.id == id);
     const postDetail = `
      <div class="container">
     <div class="row text-center light-grey">
       <h1 class="text-bold">Post Details</h1>
       <div class="col-lg-6 col-md-6 pt-2 text-start">
-        <h2>${data.title}</h2>
+        <h2>${data?.title}</h2>
         <p>
-          ${data.body}
+          ${data?.body}
         </p>
       </div>
     </div>
